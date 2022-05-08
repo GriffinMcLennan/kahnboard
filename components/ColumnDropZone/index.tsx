@@ -15,7 +15,6 @@ const ColumnDropZone = ({ columnInd, board, setBoard }: ColumnDropZoneProps) => 
             accept: "column",
 
             drop: (item: any) => {
-                // console.log(item, columnInd);
                 handleColumnDrop(board, setBoard, columnInd, item.columnInd);
             },
 
@@ -33,42 +32,21 @@ const ColumnDropZone = ({ columnInd, board, setBoard }: ColumnDropZoneProps) => 
         newColumn: number,
         oldColumn: number
     ) => {
-        // any change to the left will have an effect
-        const toLeftChange = newColumn < oldColumn;
+        const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
+        const toMove = deepBoardCopy[oldColumn];
 
-        // changes to the right require a difference of larger than 1
-        const toRightChange = newColumn > oldColumn + 1;
+        const newBoard = [
+            ...deepBoardCopy.slice(0, oldColumn),
+            ...deepBoardCopy.slice(oldColumn + 1, deepBoardCopy.length),
+        ];
 
-        if (!toLeftChange && !toRightChange) return;
-
-        // console.log("newColumn:", newColumn, "oldColumn:", oldColumn);
-        /*
-          arr = [c1, c2, c3, c4, c5, c6]
-                  new,        old
-
-          remove old: arr = [c1, c2, c3, c5, c6]
-
-          append removed:
-        */
-
-        const removed = board[oldColumn];
-
-        const leftArr = board.slice(0, oldColumn);
-        const rightArr = board.slice(oldColumn + 1, board.length);
-        const combined = [...leftArr, ...rightArr];
-
-        // console.log("oldBoard:", board);
-        // console.log("left:", leftArr, "right:", rightArr);
-        // console.log("Combined:", combined);
-        // console.log("removed:", removed);
-
-        if (toLeftChange) {
-            combined.splice(newColumn, 0, removed);
+        if (newColumn > oldColumn) {
+            newBoard.splice(newColumn - 1, 0, toMove);
         } else {
-            combined.splice(newColumn - 1, 0, removed);
+            newBoard.splice(newColumn, 0, toMove);
         }
 
-        setBoard(combined);
+        setBoard(newBoard);
     };
 
     return (

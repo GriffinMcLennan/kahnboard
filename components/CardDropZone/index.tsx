@@ -37,23 +37,21 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
         newColumnInd: number,
         newCardInd: number
     ) => {
-        console.log(
-            "oldColumnInd:",
-            oldColumnInd,
-            "oldCardInd",
-            oldCardInd,
-            "newColumnInd:",
-            newColumnInd,
-            "newCardInd",
-            newCardInd
-        );
-
-        console.log(board[oldColumnInd]);
+        // Debug info:
+        // console.log(
+        //     "oldColumnInd:",
+        //     oldColumnInd,
+        //     "oldCardInd",
+        //     oldCardInd,
+        //     "newColumnInd:",
+        //     newColumnInd,
+        //     "newCardInd",
+        //     newCardInd
+        // );
 
         // delete current element
-        const boardCopy = JSON.parse(JSON.stringify(board));
+        const boardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
         const toMove = boardCopy[oldColumnInd].cards[oldCardInd];
-        console.log(toMove);
 
         // remove it from the old index
         boardCopy[oldColumnInd].cards = [
@@ -61,11 +59,8 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
             ...boardCopy[oldColumnInd].cards.slice(oldCardInd + 1, boardCopy[oldColumnInd].cards.length),
         ];
 
-        console.log(board[oldColumnInd].cards);
-        console.log(boardCopy[oldColumnInd].cards);
-
         // if same column and newCardInd >= oldCardInd then we can decrement it by 1 after
-        if (oldColumnInd === newColumnInd && newCardInd >= oldCardInd) {
+        if (oldColumnInd === newColumnInd && newCardInd > oldCardInd) {
             boardCopy[newColumnInd].cards.splice(newCardInd - 1, 0, toMove);
         } else {
             boardCopy[newColumnInd].cards.splice(newCardInd, 0, toMove);
