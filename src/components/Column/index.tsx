@@ -18,6 +18,8 @@ interface ColumnType {
     cards: CardType[];
 }
 
+const ARCHIVE_BOARD = -1;
+
 const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
     const [title, setTitle] = useState("");
     const { isOpen, onClose, onOpen } = useDisclosure();
@@ -44,6 +46,16 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         onClose();
     };
 
+    const deleteColumn = () => {
+        const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
+        const removedColumnBoard = [
+            ...deepBoardCopy.slice(0, columnInd),
+            ...deepBoardCopy.slice(columnInd + 1, deepBoardCopy.length),
+        ];
+
+        setBoard(removedColumnBoard);
+    };
+
     useEffect(() => {
         setTitle(columnData.title);
     }, [columnData]);
@@ -67,7 +79,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 ref={drag}
                 opacity={isDragging ? 0 : 1}
             >
-                <Flex alignItems="center" justifyContent="space-between" width="80%" mt="5px">
+                <Flex alignItems="center" justifyContent="space-between" width="90%" mt="5px">
                     <Text fontSize="18px" fontWeight="600">
                         {columnData.title}
                     </Text>
@@ -75,6 +87,12 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                     <Button width="30px" height="30px" onClick={() => onOpen()}>
                         Edit
                     </Button>
+
+                    {columnData.cards.length === 0 && columnData.id !== ARCHIVE_BOARD && (
+                        <Button width="30px" height="30px" onClick={deleteColumn}>
+                            Del
+                        </Button>
+                    )}
                 </Flex>
 
                 {board[columnInd].cards.map((card, cardInd) => (
