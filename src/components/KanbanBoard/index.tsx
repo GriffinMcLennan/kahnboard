@@ -74,11 +74,11 @@ const KanbanBoard = () => {
     };
 
     return (
-        <Flex width="100vw" mt="20px">
+        <Flex width="100vw" height="95vh" mt="4.5vh">
             <AddColumnModal isOpen={isOpen} onClose={onClose} addColumn={addColumn} />
 
             <Flex justifyContent="space-between" width="100%" height="100%">
-                <Flex flex={8} maxWidth="80%" overflow="scroll">
+                <Flex flex={8} maxWidth="80%" overflowX="scroll">
                     {board.map((column, columnInd) => (
                         <Flex display={column.id === -1 ? "none" : "flex"} key={column.id}>
                             <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />

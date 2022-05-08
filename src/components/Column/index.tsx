@@ -95,7 +95,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 borderRadius="6px"
                 height="90vh"
                 overflow="auto"
-                ref={drag}
+                ref={columnData.id !== -1 ? drag : null}
                 opacity={isDragging ? 0 : 1}
             >
                 <Flex alignItems="center" justifyContent="space-between" width="90%" mt="5px">
