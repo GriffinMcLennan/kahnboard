@@ -78,7 +78,7 @@ const KanbanBoard = () => {
             <AddColumnModal isOpen={isOpen} onClose={onClose} addColumn={addColumn} />
 
             <Flex justifyContent="space-between" width="100%" height="100%">
-                <Flex flex={8} maxWidth="80%" overflowX="scroll">
+                <Flex flex={8} maxWidth="80%" overflowX="auto">
                     {board.map((column, columnInd) => (
                         <Flex display={column.id === -1 ? "none" : "flex"} key={column.id}>
                             <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
@@ -92,7 +92,6 @@ const KanbanBoard = () => {
                 </Flex>
 
                 <Flex flex={2}>
-                    <ColumnDropZone columnInd={ARCHIVE_IND} board={board} setBoard={setBoard} />
                     <CardColumn columnInd={ARCHIVE_IND} board={board} setBoard={setBoard} />
                 </Flex>
             </Flex>

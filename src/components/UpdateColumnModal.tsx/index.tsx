@@ -34,7 +34,7 @@ const UpdateColumnModal: React.FC<UpdateColumnModalProps> = ({ isOpen, onClose, 
                         <Text width="120px" mr="5px">
                             Name:
                         </Text>
-                        <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <Input value={title} autoFocus onChange={(e) => setTitle(e.target.value)} />
                     </Flex>
                 </ModalBody>
 

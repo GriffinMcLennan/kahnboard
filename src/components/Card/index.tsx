@@ -70,6 +70,24 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
         onClose();
     };
 
+    const archive = () => {
+        const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
+
+        // grab the current card
+        const curCard = deepBoardCopy[columnInd].cards[cardInd];
+
+        // remove the card from the current column
+        deepBoardCopy[columnInd].cards = [
+            ...deepBoardCopy[columnInd].cards.slice(0, cardInd),
+            ...deepBoardCopy[columnInd].cards.slice(cardInd + 1, deepBoardCopy[columnInd].cards.length),
+        ];
+
+        // move the card to the archive
+        deepBoardCopy[0].cards.push(curCard);
+
+        setBoard(deepBoardCopy);
+    };
+
     return (
         <>
             <UpdateCardModal
@@ -91,11 +109,15 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 width="220px"
                 alignItems="center"
                 opacity={isDragging ? 0 : 1}
+                padding="5px"
             >
                 <Text>{cardData.name}</Text>
                 <Text>{cardData.description}</Text>
                 <Text>{cardData.status ? "Closed" : "Open"}</Text>
-                <Button onClick={onOpen}>Edit</Button>
+                <Flex justifyContent="space-between" width="90%">
+                    <Button onClick={onOpen}>Edit</Button>
+                    <Button onClick={archive}>Archive</Button>
+                </Flex>
             </Flex>
         </>
     );

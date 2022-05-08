@@ -26,19 +26,26 @@ const AddColumnModal: React.FC<AddColumnModalProps> = ({ isOpen, onClose, addCol
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Update Column</ModalHeader>
+                <ModalHeader>Add Column</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Flex alignItems="center">
                         <Text width="120px" mr="5px">
                             Name:
                         </Text>
-                        <Input value={name} onChange={(e) => setName(e.target.value)} />
+                        <Input autoFocus value={name} onChange={(e) => setName(e.target.value)} />
                     </Flex>
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button onClick={() => addColumn(name)}>Add Column</Button>
+                    <Button
+                        onClick={() => {
+                            addColumn(name);
+                            setName("");
+                        }}
+                    >
+                        Add Column
+                    </Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
