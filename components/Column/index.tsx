@@ -2,6 +2,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import { useDrag } from "react-dnd";
 import Card, { CardType } from "../Card";
+import CardDropZone from "../CardDropZone";
 
 interface ColumnProps {
     title: string;
@@ -41,6 +42,7 @@ const CardColumn = ({ title, date, columnInd, board, setBoard }: ColumnProps) =>
             width="250px"
             border="1px solid black"
             borderRadius="6px"
+            height="90vh"
             marginY="20px"
             ref={drag}
             opacity={isDragging ? 0 : 1}
@@ -49,8 +51,11 @@ const CardColumn = ({ title, date, columnInd, board, setBoard }: ColumnProps) =>
             <Text>Date: {date}</Text>
             <Text>ColumnInd: {columnInd}</Text>
 
-            {board[columnInd].cards.map((card) => (
-                <Card key={card.description} title="pizza" _description="hi" />
+            {board[columnInd].cards.map((card, cardInd) => (
+                <>
+                    <CardDropZone board={board} setBoard={setBoard} columnInd={columnInd} cardInd={cardInd} />
+                    <Card key={card.description} columnInd={columnInd} cardInd={cardInd} board={board} />
+                </>
             ))}
         </Flex>
     );

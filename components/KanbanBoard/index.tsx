@@ -11,13 +11,35 @@ const KanbanBoard = () => {
             id: 0,
             title: "Tasks",
             date: "May 7",
-            cards: [],
+            cards: [
+                {
+                    name: "task1",
+                    description: "finish task1",
+                    status: false,
+                },
+                {
+                    name: "task2",
+                    description: "Do task 2",
+                    status: false,
+                },
+                {
+                    name: "task3",
+                    description: "The last task here",
+                    status: false,
+                },
+            ],
         },
         {
             id: 1,
             title: "Todo",
             date: "May 6",
-            cards: [],
+            cards: [
+                {
+                    name: "task4",
+                    description: "finish task4",
+                    status: false,
+                },
+            ],
         },
         {
             id: 2,
