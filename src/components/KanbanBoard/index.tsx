@@ -5,8 +5,17 @@ import { ColumnType } from "../Column";
 import ColumnDropZone from "../ColumnDropZone";
 import AddColumnModal from "../AddColumnModal";
 
+const ARCHIVE_IND = 0;
+
 const KanbanBoard = () => {
     const [board, setBoard] = useState<ColumnType[]>([
+        {
+            id: -1,
+            title: "Archive",
+            date: "",
+            cards: [],
+        },
+
         {
             id: 0,
             title: "Tasks",
@@ -65,19 +74,28 @@ const KanbanBoard = () => {
     };
 
     return (
-        <Flex width="100vw" height="20vh" mt="20px">
+        <Flex width="100vw" mt="20px">
             <AddColumnModal isOpen={isOpen} onClose={onClose} addColumn={addColumn} />
-            {board.map((column, columnInd) => (
-                <Flex key={column.id}>
-                    <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
-                    <CardColumn columnInd={columnInd} board={board} setBoard={setBoard} />
-                </Flex>
-            ))}
 
-            <ColumnDropZone columnInd={board.length} board={board} setBoard={setBoard} />
-            <Button margin="20px" onClick={onOpen}>
-                Add column
-            </Button>
+            <Flex justifyContent="space-between" width="100%" height="100%">
+                <Flex flex={8} maxWidth="80%" overflow="scroll">
+                    {board.map((column, columnInd) => (
+                        <Flex display={column.id === -1 ? "none" : "flex"} key={column.id}>
+                            <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
+                            <CardColumn columnInd={columnInd} board={board} setBoard={setBoard} />
+                        </Flex>
+                    ))}
+                    <ColumnDropZone columnInd={board.length} board={board} setBoard={setBoard} />
+                    <Button margin="60px" minWidth="100px" height="40px" onClick={onOpen}>
+                        Add column
+                    </Button>
+                </Flex>
+
+                <Flex flex={2}>
+                    <ColumnDropZone columnInd={ARCHIVE_IND} board={board} setBoard={setBoard} />
+                    <CardColumn columnInd={ARCHIVE_IND} board={board} setBoard={setBoard} />
+                </Flex>
+            </Flex>
         </Flex>
     );
 };
