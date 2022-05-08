@@ -21,6 +21,7 @@ interface ColumnType {
 }
 
 const ARCHIVE_BOARD = -1;
+const ARCHIVE_IND = 0;
 
 const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
     const [title, setTitle] = useState("");
@@ -114,7 +115,14 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                     )}
                 </Flex>
 
-                <Button mt="15px" minHeight="40px" minWidth="100px" backgroundColor="blue.300" onClick={addOnOpen}>
+                <Button
+                    display={columnInd === ARCHIVE_IND ? "none" : "block"}
+                    mt="15px"
+                    minHeight="40px"
+                    minWidth="100px"
+                    backgroundColor="blue.300"
+                    onClick={addOnOpen}
+                >
                     Add card
                 </Button>
 

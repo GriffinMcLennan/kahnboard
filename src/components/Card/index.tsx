@@ -32,6 +32,8 @@ interface CardType {
     status: boolean;
 }
 
+const ARCHIVE_IND = 0;
+
 const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -110,11 +112,12 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 alignItems="center"
                 opacity={isDragging ? 0 : 1}
                 padding="5px"
+                backgroundColor="yellow.50"
             >
                 <Text>{cardData.name}</Text>
                 <Text>{cardData.description}</Text>
-                <Text>{cardData.status ? "Closed" : "Open"}</Text>
-                <Flex justifyContent="space-between" width="90%">
+                <Text>Status: {cardData.status ? "Closed" : "Open"}</Text>
+                <Flex display={columnInd === ARCHIVE_IND ? "none" : "flex"} justifyContent="space-between" width="90%">
                     <Button onClick={onOpen}>Edit</Button>
                     <Button onClick={archive}>Archive</Button>
                 </Flex>
