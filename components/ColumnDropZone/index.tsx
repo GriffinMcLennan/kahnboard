@@ -1,12 +1,12 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import { useDrop } from "react-dnd";
-import type { Column } from "../KanbanBoard";
+import type { ColumnType } from "../Column";
 
 interface ColumnDropZoneProps {
     columnInd: number;
-    board: Column[];
-    setBoard: Dispatch<SetStateAction<Column[]>>;
+    board: ColumnType[];
+    setBoard: Dispatch<SetStateAction<ColumnType[]>>;
 }
 
 const ColumnDropZone = ({ columnInd, board, setBoard }: ColumnDropZoneProps) => {
@@ -28,8 +28,8 @@ const ColumnDropZone = ({ columnInd, board, setBoard }: ColumnDropZoneProps) => 
     );
 
     const handleColumnDrop = (
-        board: Column[],
-        setBoard: Dispatch<SetStateAction<Column[]>>,
+        board: ColumnType[],
+        setBoard: Dispatch<SetStateAction<ColumnType[]>>,
         newColumn: number,
         oldColumn: number
     ) => {

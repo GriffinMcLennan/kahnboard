@@ -6,6 +6,12 @@ interface CardProps {
     _description: string;
 }
 
+interface CardType {
+    title: string;
+    description: string;
+    status: boolean;
+}
+
 const Card = ({ title, _description }: CardProps) => {
     const [description, setDescription] = useState(_description);
 
@@ -21,4 +27,5 @@ const Card = ({ title, _description }: CardProps) => {
     );
 };
 
+export type { CardType };
 export default Card;

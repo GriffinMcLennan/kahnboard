@@ -1,24 +1,12 @@
 import { useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import Card from "../Card";
-import Column from "../Column";
+import CardColumn from "../Column";
+import { ColumnType } from "../Column";
 import ColumnDropZone from "../ColumnDropZone";
 
-interface Column {
-    id: number;
-    title: string;
-    date: string;
-    cards: Card[];
-}
-
-interface Card {
-    title: string;
-    description: string;
-    status: boolean;
-}
-
 const KanbanBoard = () => {
-    const [board, setBoard] = useState<Column[]>([
+    const [board, setBoard] = useState<ColumnType[]>([
         {
             id: 0,
             title: "Tasks",
@@ -40,11 +28,11 @@ const KanbanBoard = () => {
     ]);
 
     return (
-        <Flex width="100vw" height="100vh">
+        <Flex width="100vw" height="20vh">
             {board.map((column, columnInd) => (
                 <Flex key={column.id}>
                     <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
-                    <Column {...column} columnInd={columnInd} />
+                    <CardColumn {...column} columnInd={columnInd} board={board} setBoard={setBoard} />
                 </Flex>
             ))}
 
@@ -53,5 +41,4 @@ const KanbanBoard = () => {
     );
 };
 
-export type { Column };
 export default KanbanBoard;

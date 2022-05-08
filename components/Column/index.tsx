@@ -1,12 +1,24 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { Dispatch, SetStateAction } from "react";
 import { useDrag } from "react-dnd";
+import Card, { CardType } from "../Card";
+
 interface ColumnProps {
     title: string;
     date: string;
     columnInd: number;
+    board: ColumnType[];
+    setBoard: Dispatch<SetStateAction<ColumnType[]>>;
 }
 
-const Column = ({ title, date, columnInd }: ColumnProps) => {
+interface ColumnType {
+    id: number;
+    title: string;
+    date: string;
+    cards: CardType[];
+}
+
+const CardColumn = ({ title, date, columnInd, board, setBoard }: ColumnProps) => {
     const [{ isDragging }, drag] = useDrag(
         () => ({
             type: "column",
@@ -19,7 +31,7 @@ const Column = ({ title, date, columnInd }: ColumnProps) => {
                 isDragging: monitor.isDragging(),
             }),
         }),
-        [columnInd]
+        [columnInd, board]
     );
 
     return (
@@ -33,11 +45,16 @@ const Column = ({ title, date, columnInd }: ColumnProps) => {
             ref={drag}
             opacity={isDragging ? 0 : 1}
         >
-            <Text>{title}</Text>
-            <Text>{date}</Text>
-            <Text>{columnInd}</Text>
+            <Text>Title: {title}</Text>
+            <Text>Date: {date}</Text>
+            <Text>ColumnInd: {columnInd}</Text>
+
+            {board[columnInd].cards.map((card) => (
+                <Card key={card.description} title="pizza" _description="hi" />
+            ))}
         </Flex>
     );
 };
 
-export default Column;
+export type { ColumnType };
+export default CardColumn;
