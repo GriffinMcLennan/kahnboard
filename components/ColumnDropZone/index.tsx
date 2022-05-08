@@ -72,7 +72,7 @@ const ColumnDropZone = ({ columnInd, board, setBoard }: ColumnDropZoneProps) => 
     };
 
     return (
-        <Flex flexDirection="column" backgroundColor="blue" height="100vh" margin="20px" width="50px" ref={drop}>
+        <Flex flexDirection="column" backgroundColor="blue" height="100vh" width="100px" ref={drop}>
             <Text>Column Drop Zone!</Text>
             {canDrop ? "Can drop here" : "Cant drop here"}
         </Flex>

@@ -8,16 +8,17 @@ interface CardDropZoneProps {
     cardInd: number;
     board: ColumnType[];
     setBoard: Dispatch<SetStateAction<ColumnType[]>>;
+    isLast?: boolean;
 }
 
-const CardDropZone = ({ columnInd, cardInd, board, setBoard }: CardDropZoneProps) => {
+const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZoneProps) => {
     const [{ canDrop, isOver }, drop] = useDrop(
         () => ({
             accept: "card",
 
             drop: (item: any) => {
                 // console.log(item, columnInd);
-                handleColumnDrop(board, setBoard, columnInd, item.columnInd);
+                handleColumnDrop(board, setBoard, item.columnInd, item.cardInd, columnInd, cardInd);
             },
 
             collect: (monitor) => ({
@@ -25,55 +26,63 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard }: CardDropZoneProps
                 canDrop: monitor.canDrop(),
             }),
         }),
-        [columnInd, board]
+        [columnInd, cardInd, board]
     );
 
     const handleColumnDrop = (
         board: ColumnType[],
         setBoard: Dispatch<SetStateAction<ColumnType[]>>,
-        newColumn: number,
-        oldColumn: number
+        oldColumnInd: number,
+        oldCardInd: number,
+        newColumnInd: number,
+        newCardInd: number
     ) => {
-        // any change to the left will have an effect
-        const toLeftChange = newColumn < oldColumn;
+        console.log(
+            "oldColumnInd:",
+            oldColumnInd,
+            "oldCardInd",
+            oldCardInd,
+            "newColumnInd:",
+            newColumnInd,
+            "newCardInd",
+            newCardInd
+        );
 
-        // changes to the right require a difference of larger than 1
-        const toRightChange = newColumn > oldColumn + 1;
+        console.log(board[oldColumnInd]);
 
-        if (!toLeftChange && !toRightChange) return;
+        // delete current element
+        const boardCopy = JSON.parse(JSON.stringify(board));
+        const toMove = boardCopy[oldColumnInd].cards[oldCardInd];
+        console.log(toMove);
 
-        // console.log("newColumn:", newColumn, "oldColumn:", oldColumn);
-        /*
-          arr = [c1, c2, c3, c4, c5, c6]
-                  new,        old
+        // remove it from the old index
+        boardCopy[oldColumnInd].cards = [
+            ...boardCopy[oldColumnInd].cards.slice(0, oldCardInd),
+            ...boardCopy[oldColumnInd].cards.slice(oldCardInd + 1, boardCopy[oldColumnInd].cards.length),
+        ];
 
-          remove old: arr = [c1, c2, c3, c5, c6]
+        console.log(board[oldColumnInd].cards);
+        console.log(boardCopy[oldColumnInd].cards);
 
-          append removed:
-        */
-
-        const removed = board[oldColumn];
-
-        const leftArr = board.slice(0, oldColumn);
-        const rightArr = board.slice(oldColumn + 1, board.length);
-        const combined = [...leftArr, ...rightArr];
-
-        // console.log("oldBoard:", board);
-        // console.log("left:", leftArr, "right:", rightArr);
-        // console.log("Combined:", combined);
-        // console.log("removed:", removed);
-
-        if (toLeftChange) {
-            combined.splice(newColumn, 0, removed);
+        // if same column and newCardInd >= oldCardInd then we can decrement it by 1 after
+        if (oldColumnInd === newColumnInd && newCardInd >= oldCardInd) {
+            boardCopy[newColumnInd].cards.splice(newCardInd - 1, 0, toMove);
         } else {
-            combined.splice(newColumn - 1, 0, removed);
+            boardCopy[newColumnInd].cards.splice(newCardInd, 0, toMove);
         }
 
-        setBoard(combined);
+        setBoard(boardCopy);
     };
 
     return (
-        <Flex flexDirection="column" backgroundColor="red.300" height="50px" margin="20px" width="100%" ref={drop}>
+        <Flex
+            flexDirection="column"
+            backgroundColor="red.300"
+            height={isLast ? "100%" : "50px"}
+            margin="20px"
+            width="100%"
+            ref={drop}
+        >
             <Text>Card Drop Zone!</Text>
             {canDrop ? "Can drop here" : "Cant drop here"}
         </Flex>

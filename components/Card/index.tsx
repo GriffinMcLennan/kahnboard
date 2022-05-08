@@ -30,6 +30,8 @@ const Card = ({ board, columnInd, cardInd }: CardProps) => {
         [columnInd, cardInd, board]
     );
 
+    const cardData = board[columnInd].cards[cardInd];
+
     return (
         <Flex
             ref={drag}
@@ -43,6 +45,9 @@ const Card = ({ board, columnInd, cardInd }: CardProps) => {
             <Text>
                 columnInd: {columnInd}, cardInd: {cardInd}{" "}
             </Text>
+            <Text>{cardData.name}</Text>
+            <Text>{cardData.description}</Text>
+            <Text>{cardData.status}</Text>
         </Flex>
     );
 };

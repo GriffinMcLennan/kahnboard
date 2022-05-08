@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useDrag } from "react-dnd";
 import Card, { CardType } from "../Card";
 import CardDropZone from "../CardDropZone";
@@ -52,11 +52,18 @@ const CardColumn = ({ title, date, columnInd, board, setBoard }: ColumnProps) =>
             <Text>ColumnInd: {columnInd}</Text>
 
             {board[columnInd].cards.map((card, cardInd) => (
-                <>
+                <React.Fragment key={cardInd}>
                     <CardDropZone board={board} setBoard={setBoard} columnInd={columnInd} cardInd={cardInd} />
                     <Card key={card.description} columnInd={columnInd} cardInd={cardInd} board={board} />
-                </>
+                </React.Fragment>
             ))}
+            <CardDropZone
+                board={board}
+                setBoard={setBoard}
+                columnInd={columnInd}
+                cardInd={board[columnInd].cards.length}
+                isLast
+            />
         </Flex>
     );
 };
