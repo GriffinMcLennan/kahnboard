@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import KanbanBoard from "../components/KanbanBoard";
+import KanbanBoard from "../src/components/KanbanBoard";
 
 const Home: NextPage = () => {
     return (

@@ -17,7 +17,6 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
             accept: "card",
 
             drop: (item: any) => {
-                // console.log(item, columnInd);
                 handleColumnDrop(board, setBoard, item.columnInd, item.cardInd, columnInd, cardInd);
             },
 
@@ -37,18 +36,6 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
         newColumnInd: number,
         newCardInd: number
     ) => {
-        // Debug info:
-        // console.log(
-        //     "oldColumnInd:",
-        //     oldColumnInd,
-        //     "oldCardInd",
-        //     oldCardInd,
-        //     "newColumnInd:",
-        //     newColumnInd,
-        //     "newCardInd",
-        //     newCardInd
-        // );
-
         // delete current element
         const boardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
         const toMove = boardCopy[oldColumnInd].cards[oldCardInd];
@@ -59,7 +46,7 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
             ...boardCopy[oldColumnInd].cards.slice(oldCardInd + 1, boardCopy[oldColumnInd].cards.length),
         ];
 
-        // if same column and newCardInd >= oldCardInd then we can decrement it by 1 after
+        // if same column and newCardInd > oldCardInd then we can decrement it by 1 after
         if (oldColumnInd === newColumnInd && newCardInd > oldCardInd) {
             boardCopy[newColumnInd].cards.splice(newCardInd - 1, 0, toMove);
         } else {
@@ -72,15 +59,12 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
     return (
         <Flex
             flexDirection="column"
-            backgroundColor="red.300"
-            height={isLast ? "100%" : "50px"}
-            margin="20px"
+            backgroundColor={canDrop ? "red.300" : "white"}
+            height="75px"
+            flexGrow={isLast ? 1 : 0}
             width="100%"
             ref={drop}
-        >
-            <Text>Card Drop Zone!</Text>
-            {canDrop ? "Can drop here" : "Cant drop here"}
-        </Flex>
+        />
     );
 };
 

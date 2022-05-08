@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Flex } from "@chakra-ui/react";
-import Card from "../Card";
+import { Flex, Button } from "@chakra-ui/react";
 import CardColumn from "../Column";
 import { ColumnType } from "../Column";
 import ColumnDropZone from "../ColumnDropZone";
@@ -54,11 +53,12 @@ const KanbanBoard = () => {
             {board.map((column, columnInd) => (
                 <Flex key={column.id}>
                     <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
-                    <CardColumn {...column} columnInd={columnInd} board={board} setBoard={setBoard} />
+                    <CardColumn columnInd={columnInd} board={board} setBoard={setBoard} />
                 </Flex>
             ))}
 
             <ColumnDropZone columnInd={board.length} board={board} setBoard={setBoard} />
+            <Button margin="20px">Add column</Button>
         </Flex>
     );
 };
