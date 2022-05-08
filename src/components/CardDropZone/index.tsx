@@ -60,7 +60,7 @@ const CardDropZone = ({ columnInd, cardInd, board, setBoard, isLast }: CardDropZ
         <Flex
             flexDirection="column"
             backgroundColor={canDrop ? "red.300" : "white"}
-            height="75px"
+            minHeight="75px"
             flexGrow={isLast ? 1 : 0}
             width="100%"
             ref={drop}

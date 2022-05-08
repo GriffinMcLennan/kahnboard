@@ -94,6 +94,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 border="1px solid black"
                 borderRadius="6px"
                 height="90vh"
+                overflow="auto"
                 ref={drag}
                 opacity={isDragging ? 0 : 1}
             >
@@ -113,7 +114,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                     )}
                 </Flex>
 
-                <Button mt="15px" backgroundColor="blue.300" onClick={addOnOpen}>
+                <Button mt="15px" minHeight="40px" minWidth="100px" backgroundColor="blue.300" onClick={addOnOpen}>
                     Add card
                 </Button>
 
