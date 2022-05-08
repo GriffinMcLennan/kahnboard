@@ -1,6 +1,8 @@
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
+import AddCardModal from "../AddCardModal";
+import AddColumnModal from "../AddColumnModal";
 import Card, { CardType } from "../Card";
 import CardDropZone from "../CardDropZone";
 import UpdateColumnModal from "../UpdateColumnModal.tsx";
@@ -22,7 +24,9 @@ const ARCHIVE_BOARD = -1;
 
 const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
     const [title, setTitle] = useState("");
-    const { isOpen, onClose, onOpen } = useDisclosure();
+    const { isOpen: updateIsOpen, onClose: updateOnClose, onOpen: updateOnOpen } = useDisclosure();
+    const { isOpen: addIsOpen, onClose: addOnClose, onOpen: addOnOpen } = useDisclosure();
+
     const columnData: ColumnType = board[columnInd];
 
     const [{ isDragging }, drag] = useDrag(
@@ -43,7 +47,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
         deepBoardCopy[columnInd].title = title;
         setBoard(deepBoardCopy);
-        onClose();
+        updateOnClose();
     };
 
     const deleteColumn = () => {
@@ -56,15 +60,29 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         setBoard(removedColumnBoard);
     };
 
+    const addCard = (name: string, description: string) => {
+        const date = new Date();
+        const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
+        deepBoardCopy[columnInd].cards.push({
+            name,
+            description,
+            status: false,
+        });
+
+        setBoard(deepBoardCopy);
+        addOnClose();
+    };
+
     useEffect(() => {
         setTitle(columnData.title);
     }, [columnData]);
 
     return (
         <>
+            <AddCardModal isOpen={addIsOpen} onClose={addOnClose} addCard={addCard} />
             <UpdateColumnModal
-                isOpen={isOpen}
-                onClose={onClose}
+                isOpen={updateIsOpen}
+                onClose={updateOnClose}
                 setTitle={setTitle}
                 title={title}
                 updateColumn={updateColumn}
@@ -84,7 +102,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                         {columnData.title}
                     </Text>
 
-                    <Button width="30px" height="30px" onClick={() => onOpen()}>
+                    <Button width="30px" height="30px" onClick={() => updateOnOpen()}>
                         Edit
                     </Button>
 
@@ -94,6 +112,10 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                         </Button>
                     )}
                 </Flex>
+
+                <Button mt="15px" backgroundColor="blue.300" onClick={addOnOpen}>
+                    Add card
+                </Button>
 
                 {board[columnInd].cards.map((card, cardInd) => (
                     <React.Fragment key={cardInd}>
