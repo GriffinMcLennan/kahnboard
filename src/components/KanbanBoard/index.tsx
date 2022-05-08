@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, useDisclosure } from "@chakra-ui/react";
 import CardColumn from "../Column";
 import { ColumnType } from "../Column";
 import ColumnDropZone from "../ColumnDropZone";
+import AddColumnModal from "../AddColumnModal";
 
 const KanbanBoard = () => {
     const [board, setBoard] = useState<ColumnType[]>([
@@ -48,8 +49,24 @@ const KanbanBoard = () => {
         },
     ]);
 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const addColumn = (title: string) => {
+        const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
+        deepBoardCopy.push({
+            id: Math.floor(Math.random() * 10000000),
+            cards: [],
+            date: "nil",
+            title,
+        });
+
+        setBoard(deepBoardCopy);
+        onClose();
+    };
+
     return (
-        <Flex width="100vw" height="20vh">
+        <Flex width="100vw" height="20vh" mt="20px">
+            <AddColumnModal isOpen={isOpen} onClose={onClose} addColumn={addColumn} />
             {board.map((column, columnInd) => (
                 <Flex key={column.id}>
                     <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
@@ -58,7 +75,9 @@ const KanbanBoard = () => {
             ))}
 
             <ColumnDropZone columnInd={board.length} board={board} setBoard={setBoard} />
-            <Button margin="20px">Add column</Button>
+            <Button margin="20px" onClick={onOpen}>
+                Add column
+            </Button>
         </Flex>
     );
 };

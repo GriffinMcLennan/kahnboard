@@ -28,7 +28,6 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
             type: "column",
             item: {
                 title: columnData.title,
-                date: columnData.date,
                 columnInd,
             },
             collect: (monitor) => ({
@@ -68,12 +67,11 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 ref={drag}
                 opacity={isDragging ? 0 : 1}
             >
-                <Text fontSize="18px" fontWeight="600">
-                    {columnData.title}
-                </Text>
+                <Flex alignItems="center" justifyContent="space-between" width="80%" mt="5px">
+                    <Text fontSize="18px" fontWeight="600">
+                        {columnData.title}
+                    </Text>
 
-                <Flex alignItems="center" justifyContent="space-between" width="80%">
-                    <Text>{columnData.date}</Text>
                     <Button width="30px" height="30px" onClick={() => onOpen()}>
                         Edit
                     </Button>
