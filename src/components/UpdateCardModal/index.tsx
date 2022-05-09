@@ -64,7 +64,11 @@ const UpdateCardModal: React.FC<UpdateCardModalProps> = ({
                         </Text>
                         <Switch
                             isChecked={status === TaskStatus.CLOSED}
-                            onChange={(e) => setStatus((b: boolean) => !b)}
+                            onChange={(e) => {
+                                setStatus((s: TaskStatus) =>
+                                    s === TaskStatus.OPEN ? TaskStatus.CLOSED : TaskStatus.OPEN
+                                );
+                            }}
                         />
                     </Flex>
                 </ModalBody>

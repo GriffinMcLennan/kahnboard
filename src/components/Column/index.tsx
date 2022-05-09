@@ -2,7 +2,6 @@ import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import AddCardModal from "../AddCardModal";
-import AddColumnModal from "../AddColumnModal";
 import Card, { CardType } from "../Card";
 import CardDropZone from "../CardDropZone";
 import { TaskStatus } from "../KanbanBoard";
@@ -17,10 +16,11 @@ interface ColumnProps {
 interface ColumnType {
     id: number;
     name: string;
+    order?: string;
     cards: CardType[];
 }
 
-const ARCHIVE_BOARD = -1;
+const ARCHIVE_BOARD_ID = -1;
 const ARCHIVE_IND = 0;
 
 const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
@@ -67,6 +67,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         deepBoardCopy[columnInd].cards.push({
             name,
             description,
+            createdAt: "",
             status: TaskStatus.OPEN,
         });
 
@@ -113,7 +114,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                         Edit
                     </Button>
 
-                    {columnData.cards.length === 0 && columnData.id !== ARCHIVE_BOARD && (
+                    {columnData.cards.length === 0 && columnData.id !== ARCHIVE_BOARD_ID && (
                         <Button width="30px" height="30px" onClick={deleteColumn}>
                             Del
                         </Button>

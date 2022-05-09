@@ -30,7 +30,9 @@ interface CardProps {
 interface CardType {
     name: string;
     description: string;
+    createdAt: string;
     status: TaskStatus;
+    order?: string;
 }
 
 const ARCHIVE_IND = 0;
@@ -115,9 +117,11 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 padding="5px"
                 backgroundColor="yellow.50"
             >
-                <Text>{cardData.name}</Text>
-                <Text>{cardData.description}</Text>
-                <Text>Status: {cardData.status ? "Closed" : "Open"}</Text>
+                <Text fontSize="18px" fontWeight="600">
+                    {cardData.name}
+                </Text>
+                <Text fontSize="14px">{cardData.description}</Text>
+                <Text fontSize="14px">Status: {cardData.status ? "Closed" : "Open"}</Text>
                 <Flex display={columnInd === ARCHIVE_IND ? "none" : "flex"} justifyContent="space-between" width="90%">
                     <Button onClick={onOpen}>Edit</Button>
                     <Button onClick={archive}>Archive</Button>

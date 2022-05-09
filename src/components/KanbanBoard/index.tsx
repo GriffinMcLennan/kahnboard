@@ -27,16 +27,19 @@ const KanbanBoard = () => {
                 {
                     name: "task1",
                     description: "finish task1",
+                    createdAt: "May 4th",
                     status: TaskStatus.OPEN,
                 },
                 {
                     name: "task2",
                     description: "Do task 2",
+                    createdAt: "May 4th",
                     status: TaskStatus.OPEN,
                 },
                 {
                     name: "task3",
                     description: "The last task here",
+                    createdAt: "May 4th",
                     status: TaskStatus.OPEN,
                 },
             ],
@@ -48,6 +51,7 @@ const KanbanBoard = () => {
                 {
                     name: "task4",
                     description: "finish task4",
+                    createdAt: "May 4th",
                     status: TaskStatus.OPEN,
                 },
             ],
