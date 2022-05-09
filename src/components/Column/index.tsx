@@ -5,6 +5,7 @@ import AddCardModal from "../AddCardModal";
 import AddColumnModal from "../AddColumnModal";
 import Card, { CardType } from "../Card";
 import CardDropZone from "../CardDropZone";
+import { TaskStatus } from "../KanbanBoard";
 import UpdateColumnModal from "../UpdateColumnModal.tsx";
 
 interface ColumnProps {
@@ -16,7 +17,6 @@ interface ColumnProps {
 interface ColumnType {
     id: number;
     title: string;
-    date: string;
     cards: CardType[];
 }
 
@@ -67,7 +67,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         deepBoardCopy[columnInd].cards.push({
             name,
             description,
-            status: false,
+            status: TaskStatus.OPEN,
         });
 
         setBoard(deepBoardCopy);

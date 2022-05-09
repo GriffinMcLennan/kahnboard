@@ -7,53 +7,54 @@ import AddColumnModal from "../AddColumnModal";
 
 const ARCHIVE_IND = 0;
 
+enum TaskStatus {
+    OPEN,
+    CLOSED,
+}
+
 const KanbanBoard = () => {
     const [board, setBoard] = useState<ColumnType[]>([
         {
             id: -1,
             title: "Archive",
-            date: "",
             cards: [],
         },
 
         {
             id: 0,
             title: "Tasks",
-            date: "May 7",
             cards: [
                 {
                     name: "task1",
                     description: "finish task1",
-                    status: false,
+                    status: TaskStatus.OPEN,
                 },
                 {
                     name: "task2",
                     description: "Do task 2",
-                    status: false,
+                    status: TaskStatus.OPEN,
                 },
                 {
                     name: "task3",
                     description: "The last task here",
-                    status: false,
+                    status: TaskStatus.OPEN,
                 },
             ],
         },
         {
             id: 1,
             title: "Todo",
-            date: "May 6",
             cards: [
                 {
                     name: "task4",
                     description: "finish task4",
-                    status: false,
+                    status: TaskStatus.OPEN,
                 },
             ],
         },
         {
             id: 2,
             title: "Complete",
-            date: "April",
             cards: [],
         },
     ]);
@@ -65,7 +66,6 @@ const KanbanBoard = () => {
         deepBoardCopy.push({
             id: Math.floor(Math.random() * 10000000),
             cards: [],
-            date: "nil",
             title,
         });
 
@@ -99,4 +99,5 @@ const KanbanBoard = () => {
     );
 };
 
+export { TaskStatus };
 export default KanbanBoard;

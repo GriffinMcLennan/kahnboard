@@ -13,6 +13,7 @@ import {
     Textarea,
     Text,
 } from "@chakra-ui/react";
+import { TaskStatus } from "../KanbanBoard";
 
 interface UpdateCardModalProps {
     isOpen: boolean;
@@ -21,7 +22,7 @@ interface UpdateCardModalProps {
     setName: (e: string) => void;
     description: string;
     setDescription: (e: string) => void;
-    status: boolean;
+    status: TaskStatus;
     setStatus: any;
     updateCard: () => void;
 }
@@ -61,7 +62,10 @@ const UpdateCardModal: React.FC<UpdateCardModalProps> = ({
                         <Text width="90px" mr="5px">
                             Status:
                         </Text>
-                        <Switch isChecked={status} onChange={(e) => setStatus((b: boolean) => !b)} />
+                        <Switch
+                            isChecked={status === TaskStatus.CLOSED}
+                            onChange={(e) => setStatus((b: boolean) => !b)}
+                        />
                     </Flex>
                 </ModalBody>
 

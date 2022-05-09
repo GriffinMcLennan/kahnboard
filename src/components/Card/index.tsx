@@ -18,6 +18,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import { ColumnType } from "../Column";
 import UpdateCardModal from "../UpdateCardModal";
+import { TaskStatus } from "../KanbanBoard";
 
 interface CardProps {
     board: ColumnType[];
@@ -29,7 +30,7 @@ interface CardProps {
 interface CardType {
     name: string;
     description: string;
-    status: boolean;
+    status: TaskStatus;
 }
 
 const ARCHIVE_IND = 0;
@@ -37,7 +38,7 @@ const ARCHIVE_IND = 0;
 const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [status, setStatus] = useState(false);
+    const [status, setStatus] = useState<TaskStatus>(TaskStatus.OPEN);
 
     const cardData = board[columnInd].cards[cardInd];
 
