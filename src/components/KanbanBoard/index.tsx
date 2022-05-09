@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Flex, Button, useDisclosure } from "@chakra-ui/react";
+import { v4 as uuidv4 } from "uuid";
 import CardColumn from "../Column";
 import { ColumnType } from "../Column";
 import ColumnDropZone from "../ColumnDropZone";
 import AddColumnModal from "../AddColumnModal";
 
 const ARCHIVE_IND = 0;
+const ARCHIVE_ID = "-1";
 
 enum TaskStatus {
     OPEN,
@@ -15,13 +17,15 @@ enum TaskStatus {
 const KanbanBoard = () => {
     const [board, setBoard] = useState<ColumnType[]>([
         {
-            id: -1,
+            id: "-1",
+            order: 0,
             name: "Archive",
             cards: [],
         },
 
         {
-            id: 0,
+            id: uuidv4(),
+            order: 1,
             name: "Tasks",
             cards: [
                 {
@@ -29,23 +33,30 @@ const KanbanBoard = () => {
                     description: "finish task1",
                     createdAt: "May 4th",
                     status: TaskStatus.OPEN,
+                    order: 0,
+                    key: uuidv4(),
                 },
                 {
                     name: "task2",
                     description: "Do task 2",
                     createdAt: "May 4th",
                     status: TaskStatus.OPEN,
+                    order: 1,
+                    key: uuidv4(),
                 },
                 {
                     name: "task3",
                     description: "The last task here",
                     createdAt: "May 4th",
                     status: TaskStatus.OPEN,
+                    order: 2,
+                    key: uuidv4(),
                 },
             ],
         },
         {
-            id: 1,
+            id: uuidv4(),
+            order: 2,
             name: "Todo",
             cards: [
                 {
@@ -53,11 +64,14 @@ const KanbanBoard = () => {
                     description: "finish task4",
                     createdAt: "May 4th",
                     status: TaskStatus.OPEN,
+                    order: 0,
+                    key: uuidv4(),
                 },
             ],
         },
         {
-            id: 2,
+            id: uuidv4(),
+            order: 3,
             name: "Complete",
             cards: [],
         },
@@ -68,9 +82,10 @@ const KanbanBoard = () => {
     const addColumn = (name: string) => {
         const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
         deepBoardCopy.push({
-            id: Math.floor(Math.random() * 10000000),
+            id: uuidv4(),
             cards: [],
             name,
+            order: deepBoardCopy.length,
         });
 
         setBoard(deepBoardCopy);
@@ -84,12 +99,13 @@ const KanbanBoard = () => {
             <Flex justifyContent="space-between" width="100%" height="100%">
                 <Flex flex={8} maxWidth="80%" overflowX="auto">
                     {board.map((column, columnInd) => (
-                        <Flex display={column.id === -1 ? "none" : "flex"} key={column.id}>
+                        <Flex display={column.id === ARCHIVE_ID ? "none" : "flex"} key={column.id}>
                             <ColumnDropZone columnInd={columnInd} board={board} setBoard={setBoard} />
                             <CardColumn columnInd={columnInd} board={board} setBoard={setBoard} />
                         </Flex>
                     ))}
                     <ColumnDropZone columnInd={board.length} board={board} setBoard={setBoard} />
+
                     <Button margin="60px" minWidth="100px" height="40px" onClick={onOpen} backgroundColor="red.300">
                         Add column
                     </Button>

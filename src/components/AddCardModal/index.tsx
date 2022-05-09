@@ -35,7 +35,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, addCard })
                         <Text width="120px" mr="5px">
                             Name:
                         </Text>
-                        <Input value={name} onChange={(e) => setName(e.target.value)} />
+                        <Input autoFocus value={name} onChange={(e) => setName(e.target.value)} />
                     </Flex>
                     <Flex alignItems="center" mt="10px">
                         <Text width="120px" mr="5px">

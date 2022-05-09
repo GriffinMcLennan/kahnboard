@@ -1,6 +1,7 @@
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
 import AddCardModal from "../AddCardModal";
 import Card, { CardType } from "../Card";
 import CardDropZone from "../CardDropZone";
@@ -14,13 +15,13 @@ interface ColumnProps {
 }
 
 interface ColumnType {
-    id: number;
+    id: string;
     name: string;
-    order?: string;
+    order: number;
     cards: CardType[];
 }
 
-const ARCHIVE_BOARD_ID = -1;
+const ARCHIVE_BOARD_ID = "-1";
 const ARCHIVE_IND = 0;
 
 const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
@@ -69,6 +70,8 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
             description,
             createdAt: `${date.getUTCDate()}/${date.getMonth()}/${date.getFullYear()}`,
             status: TaskStatus.OPEN,
+            order: deepBoardCopy[columnInd].cards.length,
+            key: uuidv4(),
         });
 
         setBoard(deepBoardCopy);
@@ -97,7 +100,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 borderRadius="6px"
                 height="90vh"
                 overflow="auto"
-                ref={columnData.id !== -1 ? drag : null}
+                ref={columnData.id !== ARCHIVE_BOARD_ID ? drag : null}
                 opacity={isDragging ? 0 : 1}
             >
                 <Flex alignItems="center" justifyContent="space-between" width="90%" mt="5px">
@@ -133,7 +136,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 </Button>
 
                 {board[columnInd].cards.map((card, cardInd) => (
-                    <React.Fragment key={cardInd}>
+                    <React.Fragment key={card.key}>
                         <CardDropZone board={board} setBoard={setBoard} columnInd={columnInd} cardInd={cardInd} />
                         <Card
                             key={card.description}

@@ -32,7 +32,8 @@ interface CardType {
     description: string;
     createdAt: string;
     status: TaskStatus;
-    order?: string;
+    order: number;
+    key: string;
 }
 
 const ARCHIVE_IND = 0;
