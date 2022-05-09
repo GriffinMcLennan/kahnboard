@@ -20,7 +20,7 @@ const KanbanBoard = () => {
                     name: "Eat Lunch",
                     description: "Don't forget to eat lunch!",
                     createdAt: "8/4/2022",
-                    status: TaskStatus.OPEN,
+                    status: TaskStatus.CLOSED,
                     order: 0,
                     key: uuidv4(),
                 },
