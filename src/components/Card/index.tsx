@@ -36,12 +36,6 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
         }),
         [columnInd, cardInd, board]
     );
-    interface ColumnType {
-        id: string;
-        name: string;
-        order: number;
-        cards: CardType[];
-    }
 
     const updateCard = () => {
         const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
