@@ -94,6 +94,18 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
         setBoard(deepBoardCopy);
     };
 
+    const deleteCard = () => {
+        const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
+
+        // remove the card from the current column
+        deepBoardCopy[columnInd].cards = [
+            ...deepBoardCopy[columnInd].cards.slice(0, cardInd),
+            ...deepBoardCopy[columnInd].cards.slice(cardInd + 1, deepBoardCopy[columnInd].cards.length),
+        ];
+
+        setBoard(deepBoardCopy);
+    };
+
     return (
         <>
             <UpdateCardModal
@@ -121,12 +133,20 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 <Text fontSize="18px" fontWeight="600">
                     {cardData.name}
                 </Text>
+
                 <Text fontSize="14px">{cardData.description}</Text>
                 <Text fontSize="14px">Status: {cardData.status ? "Closed" : "Open"}</Text>
                 <Text fontSize="14px">Created: {cardData.createdAt}</Text>
                 <Flex display={columnInd === ARCHIVE_IND ? "none" : "flex"} justifyContent="space-between" width="90%">
-                    <Button onClick={onOpen}>Edit</Button>
-                    <Button onClick={archive}>Archive</Button>
+                    <Button fontSize="12px" width="50px" onClick={onOpen}>
+                        Edit
+                    </Button>
+                    <Button fontSize="12px" width="50px" onClick={deleteCard}>
+                        Delete
+                    </Button>
+                    <Button fontSize="12px" width="50px" onClick={archive}>
+                        Archive
+                    </Button>
                 </Flex>
             </Flex>
         </>
