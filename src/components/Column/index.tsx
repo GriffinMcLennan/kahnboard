@@ -2,8 +2,9 @@ import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
+import { ColumnType } from "../../types/board";
 import AddCardModal from "../AddCardModal";
-import Card, { CardType } from "../Card";
+import Card from "../Card";
 import CardDropZone from "../CardDropZone";
 import { TaskStatus } from "../KanbanBoard";
 import UpdateColumnModal from "../UpdateColumnModal.tsx";
@@ -12,13 +13,6 @@ interface ColumnProps {
     columnInd: number;
     board: ColumnType[];
     setBoard: Dispatch<SetStateAction<ColumnType[]>>;
-}
-
-interface ColumnType {
-    id: string;
-    name: string;
-    order: number;
-    cards: CardType[];
 }
 
 const ARCHIVE_BOARD_ID = "-1";

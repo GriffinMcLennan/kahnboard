@@ -2,17 +2,12 @@ import { useState } from "react";
 import { Flex, Button, useDisclosure } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import CardColumn from "../Column";
-import { ColumnType } from "../Column";
 import ColumnDropZone from "../ColumnDropZone";
 import AddColumnModal from "../AddColumnModal";
+import { ColumnType, TaskStatus } from "../../types/board";
 
 const ARCHIVE_IND = 0;
 const ARCHIVE_ID = "-1";
-
-enum TaskStatus {
-    OPEN,
-    CLOSED,
-}
 
 const KanbanBoard = () => {
     const [board, setBoard] = useState<ColumnType[]>([

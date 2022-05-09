@@ -1,39 +1,15 @@
-import {
-    Flex,
-    Text,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Button,
-    Input,
-    Textarea,
-    Switch,
-} from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Flex, Text, useDisclosure, Button } from "@chakra-ui/react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useDrag } from "react-dnd";
-import { ColumnType } from "../Column";
 import UpdateCardModal from "../UpdateCardModal";
 import { TaskStatus } from "../KanbanBoard";
+import { CardType, ColumnType } from "../../types/board";
 
 interface CardProps {
     board: ColumnType[];
     setBoard: Dispatch<SetStateAction<ColumnType[]>>;
     columnInd: number;
     cardInd: number;
-}
-
-interface CardType {
-    name: string;
-    description: string;
-    createdAt: string;
-    status: TaskStatus;
-    order: number;
-    key: string;
 }
 
 const ARCHIVE_IND = 0;
@@ -60,12 +36,12 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
         }),
         [columnInd, cardInd, board]
     );
-
-    useEffect(() => {
-        setName(cardData.name);
-        setDescription(cardData.description);
-        setStatus(cardData.status);
-    }, [cardData]);
+    interface ColumnType {
+        id: string;
+        name: string;
+        order: number;
+        cards: CardType[];
+    }
 
     const updateCard = () => {
         const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
