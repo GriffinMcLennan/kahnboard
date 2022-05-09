@@ -95,7 +95,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
                 height="90vh"
                 overflow="auto"
                 ref={columnData.id !== ARCHIVE_BOARD_ID ? drag : null}
-                opacity={isDragging ? 0 : 1}
+                opacity={isDragging ? 0.5 : 1}
             >
                 <Flex alignItems="center" justifyContent="space-between" width="90%" mt="5px">
                     <Text fontSize="18px" fontWeight="600">

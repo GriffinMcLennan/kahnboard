@@ -96,7 +96,7 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 borderRadius="6px"
                 width="220px"
                 alignItems="center"
-                opacity={isDragging ? 0 : 1}
+                opacity={isDragging ? 0.5 : 1}
                 padding="5px"
                 backgroundColor="yellow.50"
             >
