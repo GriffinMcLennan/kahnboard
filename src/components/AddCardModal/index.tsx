@@ -46,7 +46,15 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, addCard })
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button onClick={() => addCard(name, description)}>Add Card</Button>
+                    <Button
+                        onClick={() => {
+                            addCard(name, description);
+                            setName("");
+                            setDescription("");
+                        }}
+                    >
+                        Add Card
+                    </Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

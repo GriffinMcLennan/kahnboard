@@ -9,20 +9,18 @@ import {
     ModalFooter,
     ModalHeader,
     ModalOverlay,
-    Switch,
-    Textarea,
     Text,
 } from "@chakra-ui/react";
 
 interface UpdateColumnModalProps {
     isOpen: boolean;
     onClose: any;
-    title: string;
-    setTitle: (e: string) => void;
+    name: string;
+    setName: (e: string) => void;
     updateColumn: () => void;
 }
 
-const UpdateColumnModal: React.FC<UpdateColumnModalProps> = ({ isOpen, onClose, title, setTitle, updateColumn }) => {
+const UpdateColumnModal: React.FC<UpdateColumnModalProps> = ({ isOpen, onClose, name, setName, updateColumn }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -34,7 +32,7 @@ const UpdateColumnModal: React.FC<UpdateColumnModalProps> = ({ isOpen, onClose, 
                         <Text width="120px" mr="5px">
                             Name:
                         </Text>
-                        <Input value={title} autoFocus onChange={(e) => setTitle(e.target.value)} />
+                        <Input value={name} autoFocus onChange={(e) => setName(e.target.value)} />
                     </Flex>
                 </ModalBody>
 

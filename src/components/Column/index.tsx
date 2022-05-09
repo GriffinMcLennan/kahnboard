@@ -16,7 +16,7 @@ interface ColumnProps {
 
 interface ColumnType {
     id: number;
-    title: string;
+    name: string;
     cards: CardType[];
 }
 
@@ -24,7 +24,7 @@ const ARCHIVE_BOARD = -1;
 const ARCHIVE_IND = 0;
 
 const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
-    const [title, setTitle] = useState("");
+    const [name, setName] = useState("");
     const { isOpen: updateIsOpen, onClose: updateOnClose, onOpen: updateOnOpen } = useDisclosure();
     const { isOpen: addIsOpen, onClose: addOnClose, onOpen: addOnOpen } = useDisclosure();
 
@@ -34,7 +34,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         () => ({
             type: "column",
             item: {
-                title: columnData.title,
+                title: columnData.name,
                 columnInd,
             },
             collect: (monitor) => ({
@@ -46,7 +46,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
 
     const updateColumn = () => {
         const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
-        deepBoardCopy[columnInd].title = title;
+        deepBoardCopy[columnInd].name = name;
         setBoard(deepBoardCopy);
         updateOnClose();
     };
@@ -75,7 +75,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
     };
 
     useEffect(() => {
-        setTitle(columnData.title);
+        setName(columnData.name);
     }, [columnData]);
 
     return (
@@ -84,8 +84,8 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
             <UpdateColumnModal
                 isOpen={updateIsOpen}
                 onClose={updateOnClose}
-                setTitle={setTitle}
-                title={title}
+                setName={setName}
+                name={name}
                 updateColumn={updateColumn}
             />
             <Flex
@@ -101,10 +101,15 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
             >
                 <Flex alignItems="center" justifyContent="space-between" width="90%" mt="5px">
                     <Text fontSize="18px" fontWeight="600">
-                        {columnData.title}
+                        {columnData.name}
                     </Text>
 
-                    <Button width="30px" height="30px" onClick={() => updateOnOpen()}>
+                    <Button
+                        display={columnInd === ARCHIVE_IND ? "none" : "flex"}
+                        width="30px"
+                        height="30px"
+                        onClick={() => updateOnOpen()}
+                    >
                         Edit
                     </Button>
 

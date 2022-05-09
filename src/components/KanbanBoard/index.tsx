@@ -16,13 +16,13 @@ const KanbanBoard = () => {
     const [board, setBoard] = useState<ColumnType[]>([
         {
             id: -1,
-            title: "Archive",
+            name: "Archive",
             cards: [],
         },
 
         {
             id: 0,
-            title: "Tasks",
+            name: "Tasks",
             cards: [
                 {
                     name: "task1",
@@ -43,7 +43,7 @@ const KanbanBoard = () => {
         },
         {
             id: 1,
-            title: "Todo",
+            name: "Todo",
             cards: [
                 {
                     name: "task4",
@@ -54,19 +54,19 @@ const KanbanBoard = () => {
         },
         {
             id: 2,
-            title: "Complete",
+            name: "Complete",
             cards: [],
         },
     ]);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const addColumn = (title: string) => {
+    const addColumn = (name: string) => {
         const deepBoardCopy: ColumnType[] = JSON.parse(JSON.stringify(board));
         deepBoardCopy.push({
             id: Math.floor(Math.random() * 10000000),
             cards: [],
-            title,
+            name,
         });
 
         setBoard(deepBoardCopy);
