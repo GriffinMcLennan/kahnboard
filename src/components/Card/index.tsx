@@ -122,6 +122,7 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 </Text>
                 <Text fontSize="14px">{cardData.description}</Text>
                 <Text fontSize="14px">Status: {cardData.status ? "Closed" : "Open"}</Text>
+                <Text fontSize="14px">Created: {cardData.createdAt}</Text>
                 <Flex display={columnInd === ARCHIVE_IND ? "none" : "flex"} justifyContent="space-between" width="90%">
                     <Button onClick={onOpen}>Edit</Button>
                     <Button onClick={archive}>Archive</Button>

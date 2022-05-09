@@ -67,7 +67,7 @@ const CardColumn: React.FC<ColumnProps> = ({ columnInd, board, setBoard }) => {
         deepBoardCopy[columnInd].cards.push({
             name,
             description,
-            createdAt: "",
+            createdAt: `${date.getUTCDate()}/${date.getMonth()}/${date.getFullYear()}`,
             status: TaskStatus.OPEN,
         });
 
