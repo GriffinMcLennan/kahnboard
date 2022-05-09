@@ -17,3 +17,5 @@
 ## Demo:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/co1zU97MLdg/0.jpg)](https://youtu.be/co1zU97MLdg)
+
+OBS didn't pick up the columns/cards while being dragged due to the low opacity. It should be visible locally though
