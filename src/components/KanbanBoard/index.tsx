@@ -20,7 +20,16 @@ const KanbanBoard = () => {
             id: "-1",
             order: 0,
             name: "Archive",
-            cards: [],
+            cards: [
+                {
+                    name: "Eat Lunch",
+                    description: "Don't forget to eat lunch!",
+                    createdAt: "8/4/2022",
+                    status: TaskStatus.OPEN,
+                    order: 0,
+                    key: uuidv4(),
+                },
+            ],
         },
 
         {
@@ -29,27 +38,19 @@ const KanbanBoard = () => {
             name: "Tasks",
             cards: [
                 {
-                    name: "task1",
-                    description: "finish task1",
-                    createdAt: "May 4th",
+                    name: "Visit Store",
+                    description: "Buy food",
+                    createdAt: "8/4/2022",
                     status: TaskStatus.OPEN,
                     order: 0,
                     key: uuidv4(),
                 },
                 {
-                    name: "task2",
-                    description: "Do task 2",
-                    createdAt: "May 4th",
+                    name: "Visit Dentist",
+                    description: "Get teeth cleaned",
+                    createdAt: "3/10/2022",
                     status: TaskStatus.OPEN,
                     order: 1,
-                    key: uuidv4(),
-                },
-                {
-                    name: "task3",
-                    description: "The last task here",
-                    createdAt: "May 4th",
-                    status: TaskStatus.OPEN,
-                    order: 2,
                     key: uuidv4(),
                 },
             ],
@@ -60,9 +61,9 @@ const KanbanBoard = () => {
             name: "Todo",
             cards: [
                 {
-                    name: "task4",
-                    description: "finish task4",
-                    createdAt: "May 4th",
+                    name: "Drink water",
+                    description: "Drink some water daily",
+                    createdAt: "10/10/2010",
                     status: TaskStatus.OPEN,
                     order: 0,
                     key: uuidv4(),
@@ -73,7 +74,16 @@ const KanbanBoard = () => {
             id: uuidv4(),
             order: 3,
             name: "Complete",
-            cards: [],
+            cards: [
+                {
+                    name: "Code kanban board",
+                    description: "Create a kanban board github repository",
+                    createdAt: "4/6/2010",
+                    status: TaskStatus.CLOSED,
+                    order: 2,
+                    key: uuidv4(),
+                },
+            ],
         },
     ]);
 
