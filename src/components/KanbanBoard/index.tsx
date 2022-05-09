@@ -110,13 +110,13 @@ const KanbanBoard = () => {
                         </Flex>
                     ))}
                     <ColumnDropZone columnInd={board.length} board={board} setBoard={setBoard} />
-
-                    <Button margin="60px" minWidth="100px" height="40px" onClick={onOpen} backgroundColor="red.300">
-                        Add column
-                    </Button>
                 </Flex>
 
-                <Flex flex={2}>
+                <Button margin="50px" minWidth="100px" height="40px" onClick={onOpen} backgroundColor="red.300">
+                    Add column
+                </Button>
+
+                <Flex flex={2} justifyContent="center">
                     <CardColumn columnInd={ARCHIVE_IND} board={board} setBoard={setBoard} />
                 </Flex>
             </Flex>
