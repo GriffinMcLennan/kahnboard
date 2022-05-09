@@ -108,7 +108,15 @@ const Card = ({ board, setBoard, columnInd, cardInd }: CardProps) => {
                 <Text fontSize="14px">Status: {cardData.status ? "Closed" : "Open"}</Text>
                 <Text fontSize="14px">Created: {cardData.createdAt}</Text>
                 <Flex display={columnInd === ARCHIVE_IND ? "none" : "flex"} justifyContent="space-between" width="90%">
-                    <Button fontSize="12px" width="50px" onClick={onOpen}>
+                    <Button
+                        fontSize="12px"
+                        width="50px"
+                        onClick={() => {
+                            setName(cardData.name);
+                            setDescription(cardData.description);
+                            onOpen();
+                        }}
+                    >
                         Edit
                     </Button>
                     <Button fontSize="12px" width="50px" onClick={deleteCard}>
