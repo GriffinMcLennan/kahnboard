@@ -10,8 +10,6 @@
 
 2. visit localhost:3000
 
-## URL: [Duck Duck Go](https://duckduckgo.com).
-
 ---
 
 ## Demo:
